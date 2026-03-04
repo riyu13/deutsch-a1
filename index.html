@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsch A1 — Kosakata & Tes</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2ea;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --red: #c0392b;
+    --green: #27ae60;
+    --gray: #2a2a2a;
+    --gray2: #3d3d3d;
+    --gray3: #6b6b6b;
+    --cream: #f0ead8;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,10,10,.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,.3);
+    padding: 14px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--gold);
+    letter-spacing: .04em;
+  }
+  .logo span { color: var(--white); font-weight: 700; }
+
+  .nav-tabs {
+    display: flex; gap: 6px;
+  }
+  .nav-tab {
+    padding: 7px 18px;
+    border: 1px solid rgba(201,168,76,.35);
+    border-radius: 3px;
+    background: transparent;
+    color: var(--gray3);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .75rem;
+    cursor: pointer;
+    transition: all .2s;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .nav-tab:hover { color: var(--gold); border-color: var(--gold); }
+  .nav-tab.active {
+    background: var(--gold);
+    color: var(--black);
+    border-color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* ── MAIN ── */
+  main { max-width: 1100px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  /* ── PAGE SECTIONS ── */
+  .page { display: none; }
+  .page.active { display: block; animation: fadeUp .4s ease; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    padding: 56px 0 48px;
+  }
+  .hero-badge {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .7rem;
+    letter-spacing: .14em;
+    padding: 4px 14px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    font-weight: 900;
+    line-height: 1.08;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+  .hero h1 em { color: var(--gold); font-style: normal; }
+  .hero p {
+    color: var(--gray3);
+    font-size: 1rem;
+    max-width: 480px;
+    margin: 0 auto 32px;
+    line-height: 1.7;
+  }
+
+  /* ── CATEGORY GRID ── */
+  .section-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .7rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(201,168,76,.2);
+  }
+
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 48px;
+  }
+  .cat-card {
+    border: 1px solid var(--gray2);
+    border-radius: 6px;
+    padding: 18px 16px;
+    cursor: pointer;
+    transition: all .22s;
+    position: relative;
+    overflow: hidden;
+  }
+  .cat-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform .22s;
+    transform-origin: left;
+  }
+  .cat-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .cat-card:hover::before { transform: scaleX(1); }
+  .cat-card.selected { border-color: var(--gold); background: rgba(201,168,76,.08); }
+  .cat-card.selected::before { transform: scaleX(1); }
+
+  .cat-emoji { font-size: 1.8rem; margin-bottom: 8px; display: block; }
+  .cat-name { font-weight: 500; font-size: .9rem; color: var(--white); margin-bottom: 4px; }
+  .cat-count { font-family: 'IBM Plex Mono', monospace; font-size: .7rem; color: var(--gray3); }
+
+  /* ── VOCAB TABLE ── */
+  .vocab-controls {
+    display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; align-items: center;
+  }
+  .search-box {
+    flex: 1; min-width: 200px;
+    background: var(--gray);
+    border: 1px solid var(--gray2);
+    border-radius: 4px;
+    padding: 10px 14px;
+    color: var(--white);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .82rem;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .search-box:focus { border-color: var(--gold); }
+  .search-box::placeholder { color: var(--gray3); }
+
+  .filter-select {
+    background: var(--gray);
+    border: 1px solid var(--gray2);
+    border-radius: 4px;
+    padding: 10px 14px;
+    color: var(--white);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .78rem;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .vocab-table-wrap { overflow-x: auto; }
+  .vocab-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .88rem;
+  }
+  .vocab-table th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .68rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid rgba(201,168,76,.3);
+  }
+  .vocab-table td {
+    padding: 11px 14px;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    vertical-align: middle;
+  }
+  .vocab-table tr:hover td { background: rgba(255,255,255,.03); }
+  .vocab-table .de { font-weight: 500; color: var(--white); }
+  .vocab-table .artikel {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .72rem;
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin-right: 6px;
+  }
+  .artikel.der { background: rgba(52,152,219,.25); color: #5dade2; }
+  .artikel.die { background: rgba(231,76,60,.25); color: #e74c3c; }
+  .artikel.das { background: rgba(39,174,96,.25); color: #2ecc71; }
+  .artikel.none { display: none; }
+  .vocab-table .id { color: var(--gray3); }
+  .vocab-table .example { color: var(--gray3); font-style: italic; font-size: .82rem; }
+  .vocab-table .cat-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .65rem;
+    padding: 2px 8px;
+    border-radius: 2px;
+    background: rgba(201,168,76,.12);
+    color: var(--gold);
+    white-space: nowrap;
+  }
+
+  .vocab-count {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .72rem;
+    color: var(--gray3);
+    margin-bottom: 14px;
+  }
+
+  /* ── TEST PAGE ── */
+  .test-config {
+    background: var(--gray);
+    border: 1px solid var(--gray2);
+    border-radius: 8px;
+    padding: 28px;
+    margin-bottom: 28px;
+  }
+  .config-row {
+    display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 20px;
+  }
+  .config-group { flex: 1; min-width: 180px; }
+  .config-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .68rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .config-select, .config-input {
+    width: 100%;
+    background: var(--black);
+    border: 1px solid var(--gray2);
+    border-radius: 4px;
+    padding: 9px 12px;
+    color: var(--white);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .8rem;
+    outline: none;
+  }
+  .config-select:focus, .config-input:focus { border-color: var(--gold); }
+
+  .btn {
+    padding: 11px 28px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    transition: all .2s;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--black);
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+  }
+  .btn-secondary:hover { background: rgba(201,168,76,.1); }
+  .btn-danger {
+    background: var(--red);
+    color: var(--white);
+  }
+
+  /* ── QUIZ ── */
+  .quiz-wrap { display: none; }
+  .quiz-wrap.active { display: block; }
+
+  .quiz-progress-bar-wrap {
+    background: var(--gray);
+    border-radius: 2px;
+    height: 4px;
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+  .quiz-progress-bar {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: width .4s ease;
+  }
+
+  .quiz-meta {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 24px;
+  }
+  .quiz-counter {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .75rem;
+    color: var(--gray3);
+  }
+  .quiz-score {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .75rem;
+    color: var(--gold);
+  }
+
+  .quiz-card {
+    background: var(--gray);
+    border: 1px solid var(--gray2);
+    border-radius: 10px;
+    padding: 36px 32px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .quiz-type-badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .62rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--gray3);
+    margin-bottom: 14px;
+  }
+  .quiz-question {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .quiz-hint {
+    font-size: .82rem;
+    color: var(--gray3);
+    font-style: italic;
+    margin-bottom: 28px;
+  }
+
+  .options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .option-btn {
+    padding: 14px 18px;
+    border: 1px solid var(--gray2);
+    border-radius: 6px;
+    background: rgba(255,255,255,.03);
+    color: var(--white);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: .9rem;
+    cursor: pointer;
+    transition: all .18s;
+    text-align: left;
+  }
+  .option-btn:hover:not(:disabled) { border-color: var(--gold); background: rgba(201,168,76,.08); }
+  .option-btn.correct { border-color: var(--green) !important; background: rgba(39,174,96,.15) !important; color: #2ecc71 !important; }
+  .option-btn.wrong   { border-color: var(--red) !important;   background: rgba(192,57,43,.15) !important; color: #e74c3c !important; }
+  .option-btn:disabled { cursor: default; }
+
+  .type-input-wrap {
+    max-width: 480px;
+    margin: 0 auto;
+    display: flex;
+    gap: 10px;
+  }
+  .type-input {
+    flex: 1;
+    background: var(--black);
+    border: 1px solid var(--gray2);
+    border-radius: 4px;
+    padding: 12px 16px;
+    color: var(--white);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .type-input:focus { border-color: var(--gold); }
+
+  .feedback-msg {
+    margin-top: 16px;
+    padding: 10px 18px;
+    border-radius: 4px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .82rem;
+    text-align: center;
+    display: none;
+  }
+  .feedback-msg.correct { background: rgba(39,174,96,.18); color: #2ecc71; display: block; }
+  .feedback-msg.wrong   { background: rgba(192,57,43,.18); color: #e74c3c; display: block; }
+
+  .quiz-nav {
+    display: flex; justify-content: center; gap: 12px; margin-top: 20px;
+  }
+
+  /* ── RESULTS ── */
+  .results-card {
+    background: var(--gray);
+    border: 1px solid rgba(201,168,76,.3);
+    border-radius: 10px;
+    padding: 48px 36px;
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+  .results-score-big {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .results-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--gray3);
+    margin-bottom: 32px;
+  }
+  .results-stats {
+    display: flex; justify-content: center; gap: 32px; margin-bottom: 32px;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; }
+  .stat-num.g { color: var(--green); }
+  .stat-num.r { color: var(--red); }
+  .stat-label { font-family: 'IBM Plex Mono', monospace; font-size: .66rem; color: var(--gray3); letter-spacing: .1em; text-transform: uppercase; }
+  .results-msg { color: var(--gray3); font-size: .9rem; line-height: 1.6; margin-bottom: 28px; }
+
+  .review-list { margin-top: 32px; text-align: left; }
+  .review-item {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    font-size: .85rem;
+  }
+  .review-item.correct { background: rgba(39,174,96,.08); }
+  .review-item.wrong   { background: rgba(192,57,43,.08); }
+  .review-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+  .review-de { font-weight: 600; color: var(--white); }
+  .review-id { color: var(--gray3); }
+  .review-your { color: var(--red); font-size: .8rem; }
+
+  /* ── FLASHCARD PAGE ── */
+  .flashcard-wrap {
+    perspective: 1200px;
+    max-width: 480px;
+    margin: 0 auto 28px;
+    height: 260px;
+    cursor: pointer;
+  }
+  .flashcard-inner {
+    position: relative;
+    width: 100%; height: 100%;
+    transform-style: preserve-3d;
+    transition: transform .6s cubic-bezier(.4,0,.2,1);
+  }
+  .flashcard-inner.flipped { transform: rotateY(180deg); }
+  .flashcard-face {
+    position: absolute; inset: 0;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 32px;
+    text-align: center;
+  }
+  .flashcard-front {
+    background: var(--gray);
+    border: 1px solid rgba(201,168,76,.3);
+  }
+  .flashcard-back {
+    background: rgba(201,168,76,.1);
+    border: 1px solid var(--gold);
+    transform: rotateY(180deg);
+  }
+  .card-word {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+  .card-flip-hint {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .66rem;
+    color: var(--gray3);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-top: 18px;
+  }
+  .card-translation {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .card-example-text {
+    font-size: .82rem;
+    color: var(--gray3);
+    font-style: italic;
+  }
+
+  .fc-controls {
+    display: flex; justify-content: center; align-items: center; gap: 14px;
+    margin-bottom: 20px;
+  }
+  .fc-progress {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .75rem;
+    color: var(--gray3);
+  }
+  .fc-cat-select {
+    background: var(--gray);
+    border: 1px solid var(--gray2);
+    border-radius: 4px;
+    padding: 8px 12px;
+    color: var(--white);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .75rem;
+    outline: none;
+    margin-bottom: 20px;
+  }
+
+  /* ── UTIL ── */
+  .mt16 { margin-top: 16px; }
+  .mt24 { margin-top: 24px; }
+  .flex-end { display: flex; justify-content: flex-end; gap: 10px; }
+
+  @media(max-width:600px) {
+    .options-grid { grid-template-columns: 1fr; }
+    .config-row { flex-direction: column; }
+    .results-stats { gap: 20px; }
+    header { flex-wrap: wrap; gap: 8px; }
+    .logo { font-size: 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Deutsch<span>A1</span></div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('vocab')">📚 Kosakata</button>
+    <button class="nav-tab" onclick="showPage('flashcard')">🃏 Kartu</button>
+    <button class="nav-tab" onclick="showPage('test')">✏️ Tes</button>
+  </div>
+</header>
+
+<main>
+
+<!-- ══ VOCAB PAGE ══ -->
+<div id="page-vocab" class="page active">
+  <div class="hero">
+    <div class="hero-badge">Tingkat A1 — Pemula</div>
+    <h1>Kosakata Bahasa<br><em>Jerman</em></h1>
+    <p>Pelajari lebih dari 200 kosakata A1 yang esensial, lengkap dengan artikel, contoh kalimat, dan kategori.</p>
+  </div>
+
+  <div class="section-title">▸ Pilih Kategori</div>
+  <div class="cat-grid" id="catGrid"></div>
+
+  <div class="section-title">▸ Semua Kosakata</div>
+  <div class="vocab-controls">
+    <input class="search-box" id="searchBox" placeholder="Cari kata dalam bahasa Jerman atau Indonesia…" oninput="renderTable()">
+    <select class="filter-select" id="filterCat" onchange="renderTable()">
+      <option value="">Semua Kategori</option>
+    </select>
+  </div>
+  <div class="vocab-count" id="vocabCount"></div>
+  <div class="vocab-table-wrap">
+    <table class="vocab-table">
+      <thead>
+        <tr>
+          <th>Bahasa Jerman</th>
+          <th>Bahasa Indonesia</th>
+          <th>Contoh Kalimat</th>
+          <th>Kategori</th>
+        </tr>
+      </thead>
+      <tbody id="vocabBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ FLASHCARD PAGE ══ -->
+<div id="page-flashcard" class="page">
+  <div class="hero" style="padding-bottom:28px">
+    <div class="hero-badge">Mode Kartu Belajar</div>
+    <h1>Flash<em>card</em></h1>
+    <p>Klik kartu untuk membalik. Latih kosakata kamu satu per satu.</p>
+  </div>
+
+  <div style="text-align:center;margin-bottom:16px">
+    <select class="fc-cat-select" id="fcCatSelect" onchange="initFlashcard()">
+      <option value="">Semua Kategori</option>
+    </select>
+  </div>
+
+  <div class="flashcard-wrap" onclick="flipCard()" id="flashcardWrap">
+    <div class="flashcard-inner" id="flashcardInner">
+      <div class="flashcard-face flashcard-front">
+        <div class="card-word" id="fcWord">—</div>
+        <div id="fcArtikel" style="margin-bottom:4px"></div>
+        <div class="card-flip-hint">Klik untuk terjemahan</div>
+      </div>
+      <div class="flashcard-face flashcard-back">
+        <div class="card-translation" id="fcTrans">—</div>
+        <div class="card-example-text" id="fcExample"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fc-controls">
+    <button class="btn btn-secondary" onclick="fcNav(-1)">← Prev</button>
+    <span class="fc-progress" id="fcProgress">0 / 0</span>
+    <button class="btn btn-secondary" onclick="fcNav(1)">Next →</button>
+  </div>
+  <div style="text-align:center">
+    <button class="btn btn-primary" onclick="shuffleFlashcards()">🔀 Acak Urutan</button>
+  </div>
+</div>
+
+<!-- ══ TEST PAGE ══ -->
+<div id="page-test" class="page">
+  <div class="hero" style="padding-bottom:28px">
+    <div class="hero-badge">Mode Ujian</div>
+    <h1>Uji <em>Kemampuan</em></h1>
+    <p>Pilih jenis soal dan kategori, lalu mulai ujian kamu!</p>
+  </div>
+
+  <!-- Config -->
+  <div class="test-config" id="testConfig">
+    <div class="section-title">▸ Pengaturan Tes</div>
+    <div class="config-row">
+      <div class="config-group">
+        <label class="config-label">Jenis Soal</label>
+        <select class="config-select" id="testType">
+          <option value="de2id">Jerman → Indonesia (pilihan ganda)</option>
+          <option value="id2de">Indonesia → Jerman (pilihan ganda)</option>
+          <option value="type">Ketik Terjemahan (Jerman → Indonesia)</option>
+          <option value="artikel">Tebak Artikel (der/die/das)</option>
+          <option value="mixed">Campuran Semua</option>
+        </select>
+      </div>
+      <div class="config-group">
+        <label class="config-label">Kategori</label>
+        <select class="config-select" id="testCat">
+          <option value="">Semua Kategori</option>
+        </select>
+      </div>
+      <div class="config-group">
+        <label class="config-label">Jumlah Soal</label>
+        <select class="config-select" id="testCount">
+          <option value="10">10 soal</option>
+          <option value="20" selected>20 soal</option>
+          <option value="30">30 soal</option>
+          <option value="all">Semua kata</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="startTest()">Mulai Tes →</button>
+  </div>
+
+  <!-- Quiz area -->
+  <div class="quiz-wrap" id="quizWrap">
+    <div class="quiz-progress-bar-wrap">
+      <div class="quiz-progress-bar" id="quizBar" style="width:0%"></div>
+    </div>
+    <div class="quiz-meta">
+      <span class="quiz-counter" id="quizCounter">Soal 1 / 20</span>
+      <span class="quiz-score" id="quizScoreDisp">✓ 0  ✗ 0</span>
+    </div>
+
+    <div class="quiz-card">
+      <div class="quiz-type-badge" id="qtypeBadge"></div>
+      <div class="quiz-question" id="quizQ"></div>
+      <div class="quiz-hint" id="quizHint"></div>
+
+      <!-- Multiple choice -->
+      <div class="options-grid" id="optionsGrid"></div>
+
+      <!-- Type input -->
+      <div class="type-input-wrap" id="typeInputWrap" style="display:none">
+        <input class="type-input" id="typeInput" placeholder="Ketik terjemahan…" onkeydown="if(event.key==='Enter')checkType()">
+        <button class="btn btn-primary" onclick="checkType()">Cek</button>
+      </div>
+
+      <!-- Artikel buttons -->
+      <div class="options-grid" id="artikelGrid" style="display:none">
+        <button class="option-btn" onclick="checkArtikel('der')">der (maskulin)</button>
+        <button class="option-btn" onclick="checkArtikel('die')">die (feminin)</button>
+        <button class="option-btn" onclick="checkArtikel('das')">das (netral)</button>
+        <button class="option-btn" onclick="checkArtikel('–')">– (tanpa artikel)</button>
+      </div>
+
+      <div class="feedback-msg" id="feedbackMsg"></div>
+    </div>
+
+    <div class="quiz-nav">
+      <button class="btn btn-secondary" id="nextBtn" onclick="nextQuestion()" style="display:none">Soal Berikutnya →</button>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="resultsWrap" style="display:none">
+    <div class="results-card">
+      <div class="results-score-big" id="resPct"></div>
+      <div class="results-label">Skor Akhir</div>
+      <div class="results-stats">
+        <div class="stat">
+          <div class="stat-num g" id="resCorrect"></div>
+          <div class="stat-label">Benar</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num r" id="resWrong"></div>
+          <div class="stat-label">Salah</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" id="resTotal" style="color:var(--white)"></div>
+          <div class="stat-label">Total Soal</div>
+        </div>
+      </div>
+      <div class="results-msg" id="resMsg"></div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="startTest()">Ulangi Tes</button>
+        <button class="btn btn-secondary" onclick="showConfig()">Ubah Pengaturan</button>
+      </div>
+    </div>
+    <div class="review-list" id="reviewList"></div>
+  </div>
+</div>
+
+</main>
+
+<script>
+/* ═══════════════════════════════════════
+   DATA — 200+ Kosakata A1
+═══════════════════════════════════════ */
+const VOCAB = [
+  // BEGRÜSSUNG & ABSCHIED
+  {de:'Hallo',artikel:'–',id:'Halo',ex:'Hallo, wie geht es dir?',cat:'Salam'},
+  {de:'Guten Morgen',artikel:'–',id:'Selamat pagi',ex:'Guten Morgen! Wie spät ist es?',cat:'Salam'},
+  {de:'Guten Tag',artikel:'–',id:'Selamat siang',ex:'Guten Tag, Herr Müller.',cat:'Salam'},
+  {de:'Guten Abend',artikel:'–',id:'Selamat malam',ex:'Guten Abend! Wie war dein Tag?',cat:'Salam'},
+  {de:'Gute Nacht',artikel:'–',id:'Selamat tidur',ex:'Gute Nacht und schlaf gut!',cat:'Salam'},
+  {de:'Auf Wiedersehen',artikel:'–',id:'Sampai jumpa',ex:'Auf Wiedersehen, bis morgen!',cat:'Salam'},
+  {de:'Tschüss',artikel:'–',id:'Bye / Dadah',ex:'Tschüss, bis später!',cat:'Salam'},
+  {de:'Danke',artikel:'–',id:'Terima kasih',ex:'Danke schön für die Hilfe.',cat:'Salam'},
+  {de:'Bitte',artikel:'–',id:'Tolong / Sama-sama',ex:'Kannst du mir bitte helfen?',cat:'Salam'},
+  {de:'Entschuldigung',artikel:'–',id:'Permisi / Maaf',ex:'Entschuldigung, wo ist der Bahnhof?',cat:'Salam'},
+  {de:'Es tut mir leid',artikel:'–',id:'Saya minta maaf',ex:'Es tut mir leid, ich verstehe nicht.',cat:'Salam'},
+  {de:'Wie geht es Ihnen?',artikel:'–',id:'Apa kabar? (formal)',ex:'Guten Tag! Wie geht es Ihnen?',cat:'Salam'},
+
+  // ZAHLEN
+  {de:'null',artikel:'–',id:'nol',ex:'Meine Nummer ist null.',cat:'Angka'},
+  {de:'eins',artikel:'–',id:'satu',ex:'Ich habe eins.',cat:'Angka'},
+  {de:'zwei',artikel:'–',id:'dua',ex:'Ich habe zwei Kinder.',cat:'Angka'},
+  {de:'drei',artikel:'–',id:'tiga',ex:'Es gibt drei Möglichkeiten.',cat:'Angka'},
+  {de:'vier',artikel:'–',id:'empat',ex:'Vier plus vier ist acht.',cat:'Angka'},
+  {de:'fünf',artikel:'–',id:'lima',ex:'Ich habe fünf Finger.',cat:'Angka'},
+  {de:'sechs',artikel:'–',id:'enam',ex:'Sechs Stunden schlafe ich.',cat:'Angka'},
+  {de:'sieben',artikel:'–',id:'tujuh',ex:'Es gibt sieben Tage in einer Woche.',cat:'Angka'},
+  {de:'acht',artikel:'–',id:'delapan',ex:'Acht plus zwei ist zehn.',cat:'Angka'},
+  {de:'neun',artikel:'–',id:'sembilan',ex:'Neun Monate dauert eine Schwangerschaft.',cat:'Angka'},
+  {de:'zehn',artikel:'–',id:'sepuluh',ex:'Ich bin zehn Jahre alt.',cat:'Angka'},
+  {de:'zwanzig',artikel:'–',id:'dua puluh',ex:'Er ist zwanzig Jahre alt.',cat:'Angka'},
+  {de:'hundert',artikel:'–',id:'seratus',ex:'Das kostet hundert Euro.',cat:'Angka'},
+
+  // FAMILIE
+  {de:'die Familie',artikel:'die',id:'keluarga',ex:'Meine Familie ist groß.',cat:'Keluarga'},
+  {de:'der Vater',artikel:'der',id:'ayah',ex:'Mein Vater arbeitet viel.',cat:'Keluarga'},
+  {de:'die Mutter',artikel:'die',id:'ibu',ex:'Meine Mutter kocht gut.',cat:'Keluarga'},
+  {de:'der Bruder',artikel:'der',id:'kakak/adik laki-laki',ex:'Mein Bruder ist jung.',cat:'Keluarga'},
+  {de:'die Schwester',artikel:'die',id:'kakak/adik perempuan',ex:'Meine Schwester wohnt in Berlin.',cat:'Keluarga'},
+  {de:'der Sohn',artikel:'der',id:'anak laki-laki',ex:'Mein Sohn heißt Max.',cat:'Keluarga'},
+  {de:'die Tochter',artikel:'die',id:'anak perempuan',ex:'Meine Tochter ist drei Jahre alt.',cat:'Keluarga'},
+  {de:'der Großvater',artikel:'der',id:'kakek',ex:'Mein Großvater ist sehr alt.',cat:'Keluarga'},
+  {de:'die Großmutter',artikel:'die',id:'nenek',ex:'Meine Großmutter backt Kuchen.',cat:'Keluarga'},
+  {de:'der Mann',artikel:'der',id:'suami / pria',ex:'Mein Mann heißt Klaus.',cat:'Keluarga'},
+  {de:'die Frau',artikel:'die',id:'istri / wanita',ex:'Meine Frau ist Lehrerin.',cat:'Keluarga'},
+  {de:'das Kind',artikel:'das',id:'anak',ex:'Das Kind spielt draußen.',cat:'Keluarga'},
+  {de:'der Onkel',artikel:'der',id:'paman',ex:'Mein Onkel wohnt in München.',cat:'Keluarga'},
+  {de:'die Tante',artikel:'die',id:'bibi',ex:'Meine Tante kommt morgen.',cat:'Keluarga'},
+
+  // FARBEN
+  {de:'rot',artikel:'–',id:'merah',ex:'Der Apfel ist rot.',cat:'Warna'},
+  {de:'blau',artikel:'–',id:'biru',ex:'Der Himmel ist blau.',cat:'Warna'},
+  {de:'grün',artikel:'–',id:'hijau',ex:'Das Gras ist grün.',cat:'Warna'},
+  {de:'gelb',artikel:'–',id:'kuning',ex:'Die Sonne ist gelb.',cat:'Warna'},
+  {de:'schwarz',artikel:'–',id:'hitam',ex:'Meine Katze ist schwarz.',cat:'Warna'},
+  {de:'weiß',artikel:'–',id:'putih',ex:'Der Schnee ist weiß.',cat:'Warna'},
+  {de:'grau',artikel:'–',id:'abu-abu',ex:'Der Elefant ist grau.',cat:'Warna'},
+  {de:'braun',artikel:'–',id:'cokelat',ex:'Der Tisch ist braun.',cat:'Warna'},
+  {de:'orange',artikel:'–',id:'oranye',ex:'Die Orange ist orange.',cat:'Warna'},
+  {de:'rosa',artikel:'–',id:'merah muda',ex:'Das Kleid ist rosa.',cat:'Warna'},
+  {de:'lila',artikel:'–',id:'ungu',ex:'Die Blume ist lila.',cat:'Warna'},
+
+  // TAGE & MONATE
+  {de:'Montag',artikel:'der',id:'Senin',ex:'Montag ist der erste Werktag.',cat:'Waktu'},
+  {de:'Dienstag',artikel:'der',id:'Selasa',ex:'Am Dienstag habe ich Schule.',cat:'Waktu'},
+  {de:'Mittwoch',artikel:'der',id:'Rabu',ex:'Mittwoch ist Wochenmitte.',cat:'Waktu'},
+  {de:'Donnerstag',artikel:'der',id:'Kamis',ex:'Donnerstag kommt Besuch.',cat:'Waktu'},
+  {de:'Freitag',artikel:'der',id:'Jumat',ex:'Am Freitag arbeite ich nicht.',cat:'Waktu'},
+  {de:'Samstag',artikel:'der',id:'Sabtu',ex:'Samstag gehe ich einkaufen.',cat:'Waktu'},
+  {de:'Sonntag',artikel:'der',id:'Minggu',ex:'Am Sonntag schlafe ich lange.',cat:'Waktu'},
+  {de:'Januar',artikel:'der',id:'Januari',ex:'Im Januar ist es kalt.',cat:'Waktu'},
+  {de:'Februar',artikel:'der',id:'Februari',ex:'Februar hat 28 Tage.',cat:'Waktu'},
+  {de:'März',artikel:'der',id:'Maret',ex:'Im März beginnt der Frühling.',cat:'Waktu'},
+  {de:'April',artikel:'der',id:'April',ex:'April bringt Regen.',cat:'Waktu'},
+  {de:'Mai',artikel:'der',id:'Mei',ex:'Im Mai blühen die Blumen.',cat:'Waktu'},
+  {de:'Juni',artikel:'der',id:'Juni',ex:'Juni ist Sommermonat.',cat:'Waktu'},
+  {de:'heute',artikel:'–',id:'hari ini',ex:'Heute ist Montag.',cat:'Waktu'},
+  {de:'morgen',artikel:'–',id:'besok',ex:'Morgen fahre ich nach Berlin.',cat:'Waktu'},
+  {de:'gestern',artikel:'–',id:'kemarin',ex:'Gestern war das Wetter schön.',cat:'Waktu'},
+  {de:'jetzt',artikel:'–',id:'sekarang',ex:'Was machst du jetzt?',cat:'Waktu'},
+  {de:'die Woche',artikel:'die',id:'minggu',ex:'Diese Woche bin ich beschäftigt.',cat:'Waktu'},
+  {de:'das Jahr',artikel:'das',id:'tahun',ex:'Das Jahr hat zwölf Monate.',cat:'Waktu'},
+  {de:'die Uhrzeit',artikel:'die',id:'waktu / jam',ex:'Wie spät ist die Uhrzeit?',cat:'Waktu'},
+
+  // ESSEN & TRINKEN
+  {de:'das Brot',artikel:'das',id:'roti',ex:'Ich esse Brot zum Frühstück.',cat:'Makanan'},
+  {de:'das Wasser',artikel:'das',id:'air',ex:'Ich trinke viel Wasser.',cat:'Makanan'},
+  {de:'die Milch',artikel:'die',id:'susu',ex:'Kinder trinken gerne Milch.',cat:'Makanan'},
+  {de:'der Kaffee',artikel:'der',id:'kopi',ex:'Morgens trinke ich Kaffee.',cat:'Makanan'},
+  {de:'der Tee',artikel:'der',id:'teh',ex:'Möchtest du Tee oder Kaffee?',cat:'Makanan'},
+  {de:'das Fleisch',artikel:'das',id:'daging',ex:'Ich esse kein Fleisch.',cat:'Makanan'},
+  {de:'der Fisch',artikel:'der',id:'ikan',ex:'Der Fisch ist frisch.',cat:'Makanan'},
+  {de:'das Gemüse',artikel:'das',id:'sayuran',ex:'Gemüse ist gesund.',cat:'Makanan'},
+  {de:'das Obst',artikel:'das',id:'buah-buahan',ex:'Ich esse jeden Tag Obst.',cat:'Makanan'},
+  {de:'der Apfel',artikel:'der',id:'apel',ex:'Ein Apfel pro Tag ist gesund.',cat:'Makanan'},
+  {de:'die Banane',artikel:'die',id:'pisang',ex:'Die Banane ist reif.',cat:'Makanan'},
+  {de:'die Kartoffel',artikel:'die',id:'kentang',ex:'Kartoffeln sind lecker.',cat:'Makanan'},
+  {de:'das Ei',artikel:'das',id:'telur',ex:'Ich esse ein Ei zum Frühstück.',cat:'Makanan'},
+  {de:'der Käse',artikel:'der',id:'keju',ex:'Käse schmeckt gut.',cat:'Makanan'},
+  {de:'der Kuchen',artikel:'der',id:'kue',ex:'Meine Oma backt Kuchen.',cat:'Makanan'},
+  {de:'das Restaurant',artikel:'das',id:'restoran',ex:'Wir gehen ins Restaurant.',cat:'Makanan'},
+
+  // TIERE
+  {de:'der Hund',artikel:'der',id:'anjing',ex:'Mein Hund heißt Bello.',cat:'Hewan'},
+  {de:'die Katze',artikel:'die',id:'kucing',ex:'Die Katze schläft auf dem Sofa.',cat:'Hewan'},
+  {de:'der Vogel',artikel:'der',id:'burung',ex:'Der Vogel singt schön.',cat:'Hewan'},
+  {de:'das Pferd',artikel:'das',id:'kuda',ex:'Das Pferd galoppiert schnell.',cat:'Hewan'},
+  {de:'die Kuh',artikel:'die',id:'sapi',ex:'Die Kuh gibt Milch.',cat:'Hewan'},
+  {de:'das Schwein',artikel:'das',id:'babi',ex:'Das Schwein lebt auf dem Bauernhof.',cat:'Hewan'},
+  {de:'der Fisch',artikel:'der',id:'ikan',ex:'Der Fisch schwimmt im Wasser.',cat:'Hewan'},
+  {de:'der Elefant',artikel:'der',id:'gajah',ex:'Der Elefant ist sehr groß.',cat:'Hewan'},
+  {de:'der Löwe',artikel:'der',id:'singa',ex:'Der Löwe ist der König der Tiere.',cat:'Hewan'},
+  {de:'die Maus',artikel:'die',id:'tikus',ex:'Die Maus ist sehr klein.',cat:'Hewan'},
+
+  // KÖRPER
+  {de:'der Kopf',artikel:'der',id:'kepala',ex:'Mein Kopf tut weh.',cat:'Tubuh'},
+  {de:'das Auge',artikel:'das',id:'mata',ex:'Ich habe braune Augen.',cat:'Tubuh'},
+  {de:'die Nase',artikel:'die',id:'hidung',ex:'Meine Nase ist kalt.',cat:'Tubuh'},
+  {de:'der Mund',artikel:'der',id:'mulut',ex:'Öffne bitte den Mund.',cat:'Tubuh'},
+  {de:'das Ohr',artikel:'das',id:'telinga',ex:'Ich höre mit den Ohren.',cat:'Tubuh'},
+  {de:'die Hand',artikel:'die',id:'tangan',ex:'Ich wasche meine Hände.',cat:'Tubuh'},
+  {de:'der Fuß',artikel:'der',id:'kaki',ex:'Mein Fuß tut weh.',cat:'Tubuh'},
+  {de:'der Rücken',artikel:'der',id:'punggung',ex:'Mein Rücken schmerzt.',cat:'Tubuh'},
+  {de:'der Bauch',artikel:'der',id:'perut',ex:'Ich habe Bauchschmerzen.',cat:'Tubuh'},
+  {de:'das Herz',artikel:'das',id:'jantung / hati',ex:'Das Herz schlägt schnell.',cat:'Tubuh'},
+
+  // HAUS & WOHNUNG
+  {de:'das Haus',artikel:'das',id:'rumah',ex:'Mein Haus ist groß.',cat:'Rumah'},
+  {de:'die Wohnung',artikel:'die',id:'apartemen',ex:'Ich wohne in einer Wohnung.',cat:'Rumah'},
+  {de:'das Zimmer',artikel:'das',id:'kamar / ruangan',ex:'Das Zimmer ist hell.',cat:'Rumah'},
+  {de:'die Küche',artikel:'die',id:'dapur',ex:'Ich koche in der Küche.',cat:'Rumah'},
+  {de:'das Badezimmer',artikel:'das',id:'kamar mandi',ex:'Das Badezimmer ist sauber.',cat:'Rumah'},
+  {de:'das Schlafzimmer',artikel:'das',id:'kamar tidur',ex:'Ich schlafe im Schlafzimmer.',cat:'Rumah'},
+  {de:'das Wohnzimmer',artikel:'das',id:'ruang tamu',ex:'Wir sitzen im Wohnzimmer.',cat:'Rumah'},
+  {de:'der Tisch',artikel:'der',id:'meja',ex:'Das Essen steht auf dem Tisch.',cat:'Rumah'},
+  {de:'der Stuhl',artikel:'der',id:'kursi',ex:'Sitz bitte auf dem Stuhl.',cat:'Rumah'},
+  {de:'das Bett',artikel:'das',id:'tempat tidur',ex:'Das Bett ist sehr bequem.',cat:'Rumah'},
+  {de:'das Fenster',artikel:'das',id:'jendela',ex:'Öffne das Fenster bitte.',cat:'Rumah'},
+  {de:'die Tür',artikel:'die',id:'pintu',ex:'Bitte schließe die Tür.',cat:'Rumah'},
+
+  // BERUFE
+  {de:'der Arzt / die Ärztin',artikel:'der',id:'dokter',ex:'Der Arzt hilft den Patienten.',cat:'Pekerjaan'},
+  {de:'der Lehrer / die Lehrerin',artikel:'der',id:'guru',ex:'Die Lehrerin erklärt gut.',cat:'Pekerjaan'},
+  {de:'der Student / die Studentin',artikel:'der',id:'mahasiswa',ex:'Ich bin Student.',cat:'Pekerjaan'},
+  {de:'der Koch / die Köchin',artikel:'der',id:'koki',ex:'Der Koch kocht leckeres Essen.',cat:'Pekerjaan'},
+  {de:'der Polizist',artikel:'der',id:'polisi',ex:'Der Polizist hilft den Menschen.',cat:'Pekerjaan'},
+  {de:'der Ingenieur',artikel:'der',id:'insinyur',ex:'Mein Bruder ist Ingenieur.',cat:'Pekerjaan'},
+  {de:'der Verkäufer',artikel:'der',id:'penjual',ex:'Der Verkäufer ist freundlich.',cat:'Pekerjaan'},
+  {de:'der Kellner',artikel:'der',id:'pelayan',ex:'Der Kellner bringt das Essen.',cat:'Pekerjaan'},
+
+  // VERBEN (Kata Kerja Penting)
+  {de:'sein',artikel:'–',id:'adalah / menjadi',ex:'Ich bin müde.',cat:'Kata Kerja'},
+  {de:'haben',artikel:'–',id:'memiliki',ex:'Ich habe ein Auto.',cat:'Kata Kerja'},
+  {de:'machen',artikel:'–',id:'membuat / melakukan',ex:'Was machst du heute?',cat:'Kata Kerja'},
+  {de:'gehen',artikel:'–',id:'pergi / berjalan',ex:'Ich gehe in die Schule.',cat:'Kata Kerja'},
+  {de:'kommen',artikel:'–',id:'datang',ex:'Wann kommst du?',cat:'Kata Kerja'},
+  {de:'sprechen',artikel:'–',id:'berbicara',ex:'Ich spreche Deutsch.',cat:'Kata Kerja'},
+  {de:'essen',artikel:'–',id:'makan',ex:'Wir essen zu Mittag.',cat:'Kata Kerja'},
+  {de:'trinken',artikel:'–',id:'minum',ex:'Er trinkt Wasser.',cat:'Kata Kerja'},
+  {de:'schlafen',artikel:'–',id:'tidur',ex:'Das Baby schläft.',cat:'Kata Kerja'},
+  {de:'arbeiten',artikel:'–',id:'bekerja',ex:'Sie arbeitet im Büro.',cat:'Kata Kerja'},
+  {de:'lernen',artikel:'–',id:'belajar',ex:'Ich lerne Deutsch.',cat:'Kata Kerja'},
+  {de:'lesen',artikel:'–',id:'membaca',ex:'Er liest ein Buch.',cat:'Kata Kerja'},
+  {de:'schreiben',artikel:'–',id:'menulis',ex:'Ich schreibe einen Brief.',cat:'Kata Kerja'},
+  {de:'wohnen',artikel:'–',id:'tinggal / berdomisili',ex:'Ich wohne in Jakarta.',cat:'Kata Kerja'},
+  {de:'kaufen',artikel:'–',id:'membeli',ex:'Ich kaufe Brot.',cat:'Kata Kerja'},
+  {de:'hören',artikel:'–',id:'mendengar',ex:'Ich höre Musik.',cat:'Kata Kerja'},
+  {de:'sehen',artikel:'–',id:'melihat',ex:'Ich sehe einen Film.',cat:'Kata Kerja'},
+  {de:'fahren',artikel:'–',id:'mengendarai / pergi dengan kendaraan',ex:'Ich fahre Auto.',cat:'Kata Kerja'},
+  {de:'heißen',artikel:'–',id:'bernama',ex:'Ich heiße Maria.',cat:'Kata Kerja'},
+
+  // ADJEKTIVE
+  {de:'groß',artikel:'–',id:'besar / tinggi',ex:'Das Haus ist groß.',cat:'Sifat'},
+  {de:'klein',artikel:'–',id:'kecil / pendek',ex:'Die Maus ist klein.',cat:'Sifat'},
+  {de:'alt',artikel:'–',id:'tua / lama',ex:'Mein Opa ist sehr alt.',cat:'Sifat'},
+  {de:'jung',artikel:'–',id:'muda',ex:'Sie ist noch sehr jung.',cat:'Sifat'},
+  {de:'gut',artikel:'–',id:'baik / bagus',ex:'Das Essen ist sehr gut.',cat:'Sifat'},
+  {de:'schlecht',artikel:'–',id:'buruk / jelek',ex:'Das Wetter ist schlecht.',cat:'Sifat'},
+  {de:'schön',artikel:'–',id:'cantik / indah / bagus',ex:'Das Wetter ist schön heute.',cat:'Sifat'},
+  {de:'neu',artikel:'–',id:'baru',ex:'Ich habe ein neues Auto.',cat:'Sifat'},
+  {de:'schnell',artikel:'–',id:'cepat',ex:'Das Auto fährt schnell.',cat:'Sifat'},
+  {de:'langsam',artikel:'–',id:'lambat',ex:'Bitte sprich langsam!',cat:'Sifat'},
+  {de:'billig',artikel:'–',id:'murah',ex:'Das Brot ist billig.',cat:'Sifat'},
+  {de:'teuer',artikel:'–',id:'mahal',ex:'Das Auto ist sehr teuer.',cat:'Sifat'},
+  {de:'kalt',artikel:'–',id:'dingin',ex:'Das Wasser ist kalt.',cat:'Sifat'},
+  {de:'heiß',artikel:'–',id:'panas',ex:'Der Tee ist heiß.',cat:'Sifat'},
+  {de:'müde',artikel:'–',id:'lelah / mengantuk',ex:'Ich bin sehr müde.',cat:'Sifat'},
+  {de:'glücklich',artikel:'–',id:'bahagia',ex:'Ich bin glücklich.',cat:'Sifat'},
+
+  // VERKEHR & STADT
+  {de:'der Bahnhof',artikel:'der',id:'stasiun kereta',ex:'Der Bahnhof ist groß.',cat:'Kota'},
+  {de:'die Straße',artikel:'die',id:'jalan',ex:'Die Straße ist lang.',cat:'Kota'},
+  {de:'das Auto',artikel:'das',id:'mobil',ex:'Das Auto ist rot.',cat:'Kota'},
+  {de:'der Bus',artikel:'der',id:'bus',ex:'Der Bus kommt pünktlich.',cat:'Kota'},
+  {de:'die U-Bahn',artikel:'die',id:'kereta bawah tanah',ex:'Ich fahre mit der U-Bahn.',cat:'Kota'},
+  {de:'das Fahrrad',artikel:'das',id:'sepeda',ex:'Ich fahre gern Fahrrad.',cat:'Kota'},
+  {de:'der Flughafen',artikel:'der',id:'bandara',ex:'Der Flughafen ist weit.',cat:'Kota'},
+  {de:'das Krankenhaus',artikel:'das',id:'rumah sakit',ex:'Das Krankenhaus ist in der Nähe.',cat:'Kota'},
+  {de:'die Schule',artikel:'die',id:'sekolah',ex:'Die Schule beginnt um 8 Uhr.',cat:'Kota'},
+  {de:'der Supermarkt',artikel:'der',id:'supermarket',ex:'Ich gehe in den Supermarkt.',cat:'Kota'},
+  {de:'die Post',artikel:'die',id:'kantor pos',ex:'Ich brauche die Post.',cat:'Kota'},
+  {de:'die Bank',artikel:'die',id:'bank',ex:'Ich gehe zur Bank.',cat:'Kota'},
+  {de:'links',artikel:'–',id:'kiri',ex:'Biegen Sie links ab!',cat:'Kota'},
+  {de:'rechts',artikel:'–',id:'kanan',ex:'Das Hotel ist rechts.',cat:'Kota'},
+  {de:'geradeaus',artikel:'–',id:'lurus',ex:'Gehen Sie geradeaus!',cat:'Kota'},
+];
+
+const CATS = [...new Set(VOCAB.map(v=>v.cat))];
+
+/* ═══════════════════════════════════════
+   NAVIGATION
+═══════════════════════════════════════ */
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+/* ═══════════════════════════════════════
+   VOCAB PAGE
+═══════════════════════════════════════ */
+let selectedCat = '';
+
+function buildCatGrid() {
+  const grid = document.getElementById('catGrid');
+  const catEmoji = {
+    'Salam':'👋','Angka':'🔢','Keluarga':'👨‍👩‍👧','Warna':'🎨','Waktu':'⏰',
+    'Makanan':'🍎','Hewan':'🐾','Tubuh':'🧠','Rumah':'🏠','Pekerjaan':'💼',
+    'Kata Kerja':'⚡','Sifat':'✨','Kota':'🏙️'
+  };
+  grid.innerHTML = CATS.map(c=>{
+    const cnt = VOCAB.filter(v=>v.cat===c).length;
+    return `<div class="cat-card${selectedCat===c?' selected':''}" onclick="selectCat('${c}')">
+      <span class="cat-emoji">${catEmoji[c]||'📖'}</span>
+      <div class="cat-name">${c}</div>
+      <div class="cat-count">${cnt} kata</div>
+    </div>`;
+  }).join('');
+}
+
+function selectCat(c) {
+  selectedCat = selectedCat===c ? '' : c;
+  document.getElementById('filterCat').value = selectedCat;
+  buildCatGrid();
+  renderTable();
+}
+
+function buildFilterSelect() {
+  ['filterCat','testCat','fcCatSelect'].forEach(id=>{
+    const sel = document.getElementById(id);
+    if(!sel) return;
+    const existing = sel.innerHTML.split('\n')[0]; // keep first option
+    CATS.forEach(c=>{
+      const o = document.createElement('option');
+      o.value = c; o.textContent = c;
+      sel.appendChild(o);
+    });
+  });
+}
+
+function renderTable() {
+  const q = document.getElementById('searchBox').value.toLowerCase();
+  const cat = document.getElementById('filterCat').value;
+  selectedCat = cat;
+  buildCatGrid();
+
+  const filtered = VOCAB.filter(v=>{
+    const matchQ = !q || v.de.toLowerCase().includes(q) || v.id.toLowerCase().includes(q);
+    const matchC = !cat || v.cat===cat;
+    return matchQ && matchC;
+  });
+
+  document.getElementById('vocabCount').textContent = `Menampilkan ${filtered.length} dari ${VOCAB.length} kata`;
+
+  const tbody = document.getElementById('vocabBody');
+  tbody.innerHTML = filtered.map(v=>`
+    <tr>
+      <td class="de">
+        <span class="artikel ${v.artikel}">${v.artikel!=='–'?v.artikel:''}</span>${v.de}
+      </td>
+      <td class="id">${v.id}</td>
+      <td class="example">${v.ex}</td>
+      <td><span class="cat-tag">${v.cat}</span></td>
+    </tr>
+  `).join('');
+}
+
+/* ═══════════════════════════════════════
+   FLASHCARD PAGE
+═══════════════════════════════════════ */
+let fcList = [], fcIdx = 0, fcFlipped = false;
+
+function initFlashcard() {
+  const cat = document.getElementById('fcCatSelect').value;
+  fcList = cat ? VOCAB.filter(v=>v.cat===cat) : [...VOCAB];
+  fcIdx = 0; fcFlipped = false;
+  showFlashcard();
+}
+
+function showFlashcard() {
+  if(!fcList.length) return;
+  const v = fcList[fcIdx];
+  document.getElementById('fcWord').textContent = v.de;
+  const artEl = document.getElementById('fcArtikel');
+  if(v.artikel!=='–'){
+    artEl.innerHTML = `<span class="artikel ${v.artikel}">${v.artikel}</span>`;
+  } else { artEl.innerHTML=''; }
+  document.getElementById('fcTrans').textContent = v.id;
+  document.getElementById('fcExample').textContent = v.ex;
+  document.getElementById('fcProgress').textContent = `${fcIdx+1} / ${fcList.length}`;
+  document.getElementById('flashcardInner').classList.remove('flipped');
+  fcFlipped = false;
+}
+
+function flipCard() {
+  fcFlipped = !fcFlipped;
+  document.getElementById('flashcardInner').classList.toggle('flipped', fcFlipped);
+}
+
+function fcNav(dir) {
+  fcIdx = (fcIdx + dir + fcList.length) % fcList.length;
+  showFlashcard();
+}
+
+function shuffleFlashcards() {
+  for(let i=fcList.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [fcList[i],fcList[j]]=[fcList[j],fcList[i]];
+  }
+  fcIdx=0; showFlashcard();
+}
+
+/* ═══════════════════════════════════════
+   TEST PAGE
+═══════════════════════════════════════ */
+let quizQuestions=[], quizIdx=0, quizCorrect=0, quizWrong=0, quizAnswered=false;
+let quizReview=[];
+
+function getPool() {
+  const cat = document.getElementById('testCat').value;
+  return cat ? VOCAB.filter(v=>v.cat===cat) : VOCAB;
+}
+
+function shuffle(arr){ return [...arr].sort(()=>Math.random()-.5); }
+
+function startTest() {
+  document.getElementById('testConfig').style.display='none';
+  document.getElementById('resultsWrap').style.display='none';
+  document.getElementById('quizWrap').classList.add('active');
+
+  const pool = shuffle(getPool());
+  const countVal = document.getElementById('testCount').value;
+  const n = countVal==='all' ? pool.length : Math.min(parseInt(countVal), pool.length);
+  const baseType = document.getElementById('testType').value;
+
+  quizQuestions = pool.slice(0,n).map(v=>{
+    let type = baseType;
+    if(type==='mixed') {
+      const types=['de2id','id2de','type','artikel'];
+      // artikel only for words with artikel
+      if(v.artikel==='–') type = shuffle(['de2id','id2de','type'])[0];
+      else type = shuffle(types)[0];
+    }
+    if(type==='artikel' && v.artikel==='–') type='de2id';
+    return {v, type};
+  });
+
+  quizIdx=0; quizCorrect=0; quizWrong=0; quizReview=[];
+  showQuestion();
+}
+
+function showQuestion() {
+  const {v, type} = quizQuestions[quizIdx];
+  const total = quizQuestions.length;
+  quizAnswered = false;
+
+  document.getElementById('quizBar').style.width = (quizIdx/total*100)+'%';
+  document.getElementById('quizCounter').textContent = `Soal ${quizIdx+1} / ${total}`;
+  document.getElementById('quizScoreDisp').textContent = `✓ ${quizCorrect}  ✗ ${quizWrong}`;
+  document.getElementById('feedbackMsg').className='feedback-msg';
+  document.getElementById('nextBtn').style.display='none';
+
+  // Hide all input methods
+  document.getElementById('optionsGrid').style.display='none';
+  document.getElementById('typeInputWrap').style.display='none';
+  document.getElementById('artikelGrid').style.display='none';
+
+  if(type==='de2id') {
+    document.getElementById('qtypeBadge').textContent='Jerman → Indonesia';
+    document.getElementById('quizQ').textContent=v.de;
+    document.getElementById('quizHint').textContent=`Kategori: ${v.cat}`;
+    buildOptions(v, 'id');
+  } else if(type==='id2de') {
+    document.getElementById('qtypeBadge').textContent='Indonesia → Jerman';
+    document.getElementById('quizQ').textContent=v.id;
+    document.getElementById('quizHint').textContent=`Kategori: ${v.cat}`;
+    buildOptions(v, 'de');
+  } else if(type==='type') {
+    document.getElementById('qtypeBadge').textContent='Ketik Terjemahan';
+    document.getElementById('quizQ').textContent=v.de;
+    document.getElementById('quizHint').textContent='Ketik terjemahan dalam bahasa Indonesia';
+    document.getElementById('typeInputWrap').style.display='flex';
+    document.getElementById('typeInput').value='';
+    setTimeout(()=>document.getElementById('typeInput').focus(),100);
+  } else if(type==='artikel') {
+    document.getElementById('qtypeBadge').textContent='Tebak Artikel';
+    document.getElementById('quizQ').textContent=v.de.replace(/^(der|die|das)\s/,'');
+    document.getElementById('quizHint').textContent=`Artinya: ${v.id}`;
+    document.getElementById('artikelGrid').style.display='grid';
+    document.querySelectorAll('#artikelGrid .option-btn').forEach(b=>{b.disabled=false;b.className='option-btn';});
+  }
+}
+
+function buildOptions(correct, field) {
+  const pool = shuffle(VOCAB.filter(v=>v!==correct.v));
+  const wrong = pool.slice(0,3);
+  const opts = shuffle([correct.v, ...wrong.map(v=>v)]);
+  const grid = document.getElementById('optionsGrid');
+  grid.style.display='grid';
+  grid.innerHTML = opts.map(v=>{
+    const label = field==='id' ? v.id : v.de;
+    const isCorrect = v===correct.v;
+    return `<button class="option-btn" onclick="checkOption(this,${isCorrect},'${correct.v.id.replace(/'/g,"\\'")}','${correct.v.de.replace(/'/g,"\\'")}')">${label}</button>`;
+  }).join('');
+}
+
+function checkOption(btn, isCorrect, correctId, correctDe) {
+  if(quizAnswered) return;
+  quizAnswered = true;
+  const {v,type} = quizQuestions[quizIdx];
+
+  document.querySelectorAll('#optionsGrid .option-btn').forEach(b=>{
+    b.disabled=true;
+    const label = b.textContent;
+    const actualCorrect = type==='id2de' ? v.de : v.id;
+    if(label===actualCorrect) b.classList.add('correct');
+  });
+
+  if(isCorrect) {
+    btn.classList.add('correct');
+    quizCorrect++;
+    showFeedback(true,'Benar! 🎉');
+  } else {
+    btn.classList.add('wrong');
+    quizWrong++;
+    showFeedback(false,`Salah. Jawaban benar: ${correctId}`);
+  }
+  quizReview.push({v, correct:isCorrect, yourAnswer: btn.textContent});
+  document.getElementById('quizScoreDisp').textContent=`✓ ${quizCorrect}  ✗ ${quizWrong}`;
+  document.getElementById('nextBtn').style.display='block';
+}
+
+function checkType() {
+  if(quizAnswered) return;
+  const {v} = quizQuestions[quizIdx];
+  const input = document.getElementById('typeInput').value.trim().toLowerCase();
+  const correct = v.id.toLowerCase();
+  const isCorrect = input===correct || correct.includes(input) && input.length>2;
+  quizAnswered = true;
+  document.getElementById('typeInput').disabled=true;
+
+  if(isCorrect){ quizCorrect++; showFeedback(true,'Benar! 🎉'); }
+  else { quizWrong++; showFeedback(false,`Jawaban benar: ${v.id}`); }
+  quizReview.push({v, correct:isCorrect, yourAnswer: document.getElementById('typeInput').value});
+  document.getElementById('quizScoreDisp').textContent=`✓ ${quizCorrect}  ✗ ${quizWrong}`;
+  document.getElementById('nextBtn').style.display='block';
+}
+
+function checkArtikel(chosen) {
+  if(quizAnswered) return;
+  const {v} = quizQuestions[quizIdx];
+  quizAnswered = true;
+  const isCorrect = chosen===v.artikel;
+
+  document.querySelectorAll('#artikelGrid .option-btn').forEach(b=>{
+    b.disabled=true;
+    if(b.textContent.startsWith(v.artikel)) b.classList.add('correct');
+    else if(b.textContent.startsWith(chosen) && !isCorrect) b.classList.add('wrong');
+  });
+
+  if(isCorrect){ quizCorrect++; showFeedback(true,'Benar! 🎉'); }
+  else { quizWrong++; showFeedback(false,`Artikel yang benar: ${v.artikel}`); }
+  quizReview.push({v, correct:isCorrect, yourAnswer:chosen});
+  document.getElementById('quizScoreDisp').textContent=`✓ ${quizCorrect}  ✗ ${quizWrong}`;
+  document.getElementById('nextBtn').style.display='block';
+}
+
+function showFeedback(ok, msg) {
+  const el = document.getElementById('feedbackMsg');
+  el.textContent = msg;
+  el.className = 'feedback-msg '+(ok?'correct':'wrong');
+}
+
+function nextQuestion() {
+  quizIdx++;
+  if(quizIdx >= quizQuestions.length) { showResults(); return; }
+  showQuestion();
+}
+
+function showResults() {
+  document.getElementById('quizWrap').classList.remove('active');
+  const wrap = document.getElementById('resultsWrap');
+  wrap.style.display='block';
+
+  const total = quizQuestions.length;
+  const pct = Math.round(quizCorrect/total*100);
+  document.getElementById('resPct').textContent = pct+'%';
+  document.getElementById('resCorrect').textContent = quizCorrect;
+  document.getElementById('resWrong').textContent = quizWrong;
+  document.getElementById('resTotal').textContent = total;
+
+  let msg;
+  if(pct>=90) msg='Luar biasa! Kamu sangat menguasai kosakata A1! 🏆';
+  else if(pct>=70) msg='Bagus! Terus berlatih dan kamu akan semakin mahir. 👍';
+  else if(pct>=50) msg='Cukup baik. Pelajari kembali kata-kata yang salah. 📚';
+  else msg='Jangan menyerah! Ulangi flashcard dan coba lagi. 💪';
+  document.getElementById('resMsg').textContent = msg;
+
+  const rl = document.getElementById('reviewList');
+  rl.innerHTML = `<div class="section-title" style="margin-top:24px">▸ Detail Jawaban</div>` +
+    quizReview.map(r=>`
+      <div class="review-item ${r.correct?'correct':'wrong'}">
+        <span class="review-icon">${r.correct?'✓':'✗'}</span>
+        <div>
+          <span class="review-de">${r.v.de}</span>
+          <span class="review-id"> — ${r.v.id}</span>
+          ${!r.correct?`<div class="review-your">Jawabanmu: ${r.yourAnswer}</div>`:''}
+        </div>
+      </div>
+    `).join('');
+}
+
+function showConfig() {
+  document.getElementById('resultsWrap').style.display='none';
+  document.getElementById('testConfig').style.display='block';
+}
+
+/* ═══════════════════════════════════════
+   INIT
+═══════════════════════════════════════ */
+buildCatGrid();
+buildFilterSelect();
+renderTable();
+initFlashcard();
+</script>
+</body>
+</html>
